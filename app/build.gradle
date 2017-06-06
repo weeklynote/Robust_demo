@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+//制作补丁时将这个打开，auto-patch-plugin紧跟着com.android.application
+//apply plugin: 'auto-patch-plugin'
+apply plugin: 'robust'
+android {
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    signingConfigs {
+        release {
+            keyAlias '20170527'
+            keyPassword '123456'
+            storeFile file('E:/git_clone/Robust/Robust/app/robust.jks')
+            storePassword '123456'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.android.robust"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.meituan.robust:robust:0.4.0'
+}
